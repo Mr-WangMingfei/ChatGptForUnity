@@ -44,5 +44,5 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Mr-WangMingfei_ChatGptForUnity" /o:"mr-wangmingfei" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-           dotnet build ChatGptForUnity\ChatGptForUnity.sln --no-restore
+           dotnet build ChatGptForUnity\ChatGptForUnity.sln
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
