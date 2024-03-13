@@ -31,9 +31,9 @@ jobs:
              New-Item -ItemType Directory -Path $unityAnalyzersPath
              }
 
-            # Copy Microsoft.Unity.Analyzers.dll to the target directory
-            Copy-Item -Path "$nugetPackagesPath\Microsoft.Unity.Analyzers.1.18.0\lib\netstandard2.0\Microsoft.Unity.Analyzers.dll" -Destination "$unityAnalyzersPath" -Force
-
+           # Copy Microsoft.Unity.Analyzers.dll to the target directory
+           $sourcePath = Join-Path $nugetPackagesPath "Microsoft.Unity.Analyzers.1.18.0\analyzers\dotnet\cs\Microsoft.Unity.Analyzers.dll"
+           Copy-Item -Path $sourcePath -Destination $unityAnalyzersPath -Force
 
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
