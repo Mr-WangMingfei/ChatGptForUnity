@@ -29,7 +29,9 @@ jobs:
           if (-not (Test-Path $unityAnalyzersPath)) {
             New-Item -ItemType Directory -Path $unityAnalyzersPath
           }
-
+          # Download the NuGet package and extract the DLL
+           nuget install Microsoft.Unity.Analyzers -OutputDirectory .\path\to\nuget-packages
+           $dllPath = Get-ChildItem .\path\to\nuget-packages -Recurse -Filter 'Microsoft.Unity.Analyzers.dll' | Select-Object -ExpandProperty FullName
           # Copy Microsoft.Unity.Analyzers.dll to the target directory
           Copy-Item -Path .\path\to\Microsoft.Unity.Analyzers.dll -Destination $unityAnalyzersPath -Force
       - name: Restore dependencies
