@@ -23,17 +23,16 @@ jobs:
       - name: Install Unity Analyzers
         run: |
           # Define paths
-           $unityAnalyzersPath = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers'
-    
-          # Ensure the directory exists
-          if (-not (Test-Path $unityAnalyzersPath)) {
-            New-Item -ItemType Directory -Path $unityAnalyzersPath
-          }
-          # Download the NuGet package and extract the DLL
-           nuget install Microsoft.Unity.Analyzers -OutputDirectory .\path\to\nuget-packages
-           $dllPath = Get-ChildItem .\path\to\nuget-packages -Recurse -Filter 'Microsoft.Unity.Analyzers.dll' | Select-Object -ExpandProperty FullName
-          # Copy Microsoft.Unity.Analyzers.dll to the target directory
-          Copy-Item -Path .\path\to\Microsoft.Unity.Analyzers.dll -Destination $unityAnalyzersPath -Force
+          $unityAnalyzersPath = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers'
+          $nugetPackagesPath = 'D:\a\ChatGptForUnity\ChatGptForUnity\path\to\nuget-packages'
+
+           # Ensure the directory exists
+            if (-not (Test-Path $unityAnalyzersPath)) {
+             New-Item -ItemType Directory -Path $unityAnalyzersPath
+             }
+
+            # Copy Microsoft.Unity.Analyzers.dll to the target directory
+            Copy-Item -Path "$nugetPackagesPath\Microsoft.Unity.Analyzers.1.18.0\lib\netstandard2.0\Microsoft.Unity.Analyzers.dll" -Destination $unityAnalyzersPath -Force
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
       - uses: actions/checkout@v3
