@@ -20,9 +20,18 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
          dotnet-version: '7.0.x'
-      - name: Install Unity Analyzers 
+      - name: Install Unity Analyzers
         run: |
-           dotnet add .\ChatGptForUnity\Assembly-CSharp.csproj package Microsoft.Unity.Analyzers --version '1.11.1'
+          # Define paths
+           $unityAnalyzersPath = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers'
+    
+          # Ensure the directory exists
+          if (-not (Test-Path $unityAnalyzersPath)) {
+            New-Item -ItemType Directory -Path $unityAnalyzersPath
+          }
+
+          # Copy Microsoft.Unity.Analyzers.dll to the target directory
+          Copy-Item -Path .\path\to\Microsoft.Unity.Analyzers.dll -Destination $unityAnalyzersPath -Force
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
       - uses: actions/checkout@v3
