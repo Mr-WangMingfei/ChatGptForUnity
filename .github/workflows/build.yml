@@ -28,8 +28,15 @@ jobs:
 
           # Download Microsoft.Unity.Analyzers.dll directly from NuGet
           Invoke-WebRequest -Uri "https://www.nuget.org/api/v2/package/$packageName/$packageVersion" -OutFile "$packageName.$packageVersion.nupkg"
+     
+          # Extract the DLL from the NuGet package
           Expand-Archive -Path "$packageName.$packageVersion.nupkg" -DestinationPath "extracted"
-          Copy-Item -Path ".\extracted\lib\netstandard2.0\Microsoft.Unity.Analyzers.dll" -Destination $downloadPath -Force
+    
+          # Change the working directory to the extracted folder
+          Set-Location -Path "extracted"
+
+          # Copy the DLL to the target directory
+          Copy-Item -Path ".\lib\netstandard2.0\Microsoft.Unity.Analyzers.dll" -Destination $downloadPath -Force
 
 
       - name: Restore dependencies
