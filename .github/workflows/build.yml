@@ -26,7 +26,7 @@ jobs:
           $downloadPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll"
 
           # Download Microsoft.Unity.Analyzers.dll directly
-          Invoke-WebRequest -Uri "$downloadUrl/lib/netstandard2.0/Microsoft.Unity.Analyzers.dll" -OutFile $downloadPath
+          Invoke-WebRequest -Uri "https://api.nuget.org/v3-flatcontainer/$packageName/$packageVersion/$packageName.$packageVersion.nupkg" -OutFile $downloadPath
 
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
