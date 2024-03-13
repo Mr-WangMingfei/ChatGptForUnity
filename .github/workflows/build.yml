@@ -22,11 +22,17 @@ jobs:
          dotnet-version: '7.0.x'
       - name: Download Unity Analyzers DLL
         run: |
-          $downloadUrl = "https://www.nuget.org/api/v2/package/Microsoft.Unity.Analyzers/1.18.0"
+          $packageName = "Microsoft.Unity.Analyzers"
+          $packageVersion = "1.18.0"
           $downloadPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll"
 
-          # Download Microsoft.Unity.Analyzers.dll directly
-          Invoke-WebRequest -Uri "https://api.nuget.org/v3-flatcontainer/$packageName/$packageVersion/$packageName.$packageVersion.nupkg" -OutFile $downloadPath
+          # Download Microsoft.Unity.Analyzers.dll directly using NuGet v3 API
+          Invoke-WebRequest -Uri "https://api.nuget.org/v3-flatcontainer/$packageName/$packageVersion/$packageName.$packageVersion.nupkg" -OutFile "$packageName.$packageVersion.nupkg"
+    
+          # Extract the DLL from the NuGet package (assuming the DLL is in the 'lib' folder)
+          Expand-Archive -Path "$packageName.$packageVersion.nupkg" -DestinationPath "extracted"
+          Copy-Item -Path ".\extracted\lib\netstandard2.0\Microsoft.Unity.Analyzers.dll" -Destination $downloadPath -Forc
+
 
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
