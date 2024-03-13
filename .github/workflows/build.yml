@@ -24,6 +24,7 @@ jobs:
            dotnet nuget locals all --clear
            dotnet nuget install $packageName -v $packageVersion -o extracted
            Copy-Item -Path ".\extracted\$packageName.$packageVersion\lib\netstandard2.0\Microsoft.Unity.Analyzers.dll" -Destination $downloadPath -Force
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
