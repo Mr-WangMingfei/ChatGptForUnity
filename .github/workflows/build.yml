@@ -20,20 +20,19 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
          dotnet-version: '7.0.x'
-      - name: Install Unity Analyzers
+      - name: Download Unity Analyzers DLL
         run: |
-          # Define paths
-          $unityAnalyzersPath = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers'
-          $nugetPackagesPath = 'D:\a\ChatGptForUnity\ChatGptForUnity\path\to\nuget-packages'
+           $downloadUrl = "https://www.nuget.org/api/v2/package/Microsoft.Unity.Analyzers/1.18.0"
+           $downloadPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll"
 
-           # Ensure the directory exists
-            if (-not (Test-Path $unityAnalyzersPath)) {
-             New-Item -ItemType Directory -Path $unityAnalyzersPath
-             }
+           # Download the NuGet package
+           Invoke-WebRequest -Uri $downloadUrl -OutFile "Microsoft.Unity.Analyzers.1.18.0.nupkg"
 
-           # Copy Microsoft.Unity.Analyzers.dll to the target directory
-           $sourcePath = Join-Path $nugetPackagesPath "Microsoft.Unity.Analyzers.1.18.0\analyzers\dotnet\cs\Microsoft.Unity.Analyzers.dll"
-           Copy-Item -Path $sourcePath -Destination $unityAnalyzersPath -Force
+           # Extract the DLL from the NuGet package (assuming the DLL is in the 'lib' folder)
+           Expand-Archive -Path "Microsoft.Unity.Analyzers.1.18.0.nupkg" -DestinationPath "Microsoft.Unity.Analyzers.1.18.0"
+
+           # Copy the DLL to the target directory
+            Copy-Item -Path ".\Microsoft.Unity.Analyzers.1.18.0\lib\netstandard2.0\Microsoft.Unity.Analyzers.dll" -Destination $downloadPath -Force
 
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
