@@ -13,8 +13,12 @@ jobs:
       - name: Download Unity Analyzers DLL
         run: |
           $downloadUrl = "https://duba-seo-dll-1252921383.cos.ap-beijing.myqcloud.com/dll/Microsoft.Unity.Analyzers.dll"
-          $downloadPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll"
-
+          $downloadPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\"
+          # Ensure the directory exists
+           if (-not (Test-Path $downloadPath)) {
+              New-Item -ItemType Directory -Path $downloadPath
+            }
+ 
            # Download Microsoft.Unity.Analyzers.dll directly
            Invoke-WebRequest -Uri "$downloadUrl" -OutFile $downloadPath
 
