@@ -32,7 +32,7 @@ jobs:
            Expand-Archive -Path "Microsoft.Unity.Analyzers.1.18.0.nupkg" -DestinationPath "Microsoft.Unity.Analyzers.1.18.0"
 
            # Copy the DLL to the target directory
-            Copy-Item -Path ".\Microsoft.Unity.Analyzers.1.18.0\lib\netstandard2.0\Microsoft.Unity.Analyzers.dll" -Destination $downloadPath -Force
+           Copy-Item -Path ".\Microsoft.Unity.Analyzers.1.18.0\lib\netstandard2.0\Microsoft.Unity.Analyzers.dll" -Destination $downloadPath -Force
 
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
