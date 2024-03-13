@@ -22,7 +22,7 @@ jobs:
          dotnet-version: '7.0.x'
       - name: Install Unity Analyzers 
         run: |
-           dotnet add .\ChatGptForUnity\ChatGptForUnity.csproj package Microsoft.Unity.Analyzers --version '1.11.1'
+           dotnet add .\ChatGptForUnity\Assembly-CSharp.csproj package Microsoft.Unity.Analyzers --version '1.11.1'
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
       - uses: actions/checkout@v3
