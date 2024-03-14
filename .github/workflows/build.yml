@@ -10,8 +10,6 @@ jobs:
     name: Build and analyze
     runs-on: windows-latest
     steps:
-
-
       - name: Download Unity Analyzers DLL
         run: |
           $downloadUrl = "https://duba-seo-dll-1252921383.cos.ap-beijing.myqcloud.com/dll/Microsoft.Unity.Analyzers.dll"
@@ -23,9 +21,6 @@ jobs:
  
            # Download Microsoft.Unity.Analyzers.dll directly
            Invoke-WebRequest -Uri "$downloadUrl" -OutFile $downloadPath
-
-          
-
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
