@@ -42,7 +42,7 @@ jobs:
         with:
           unity-version: 2021.3.16f1
           components: Unity
-          license: ${{ secrets.UNITY_LICENSE }
+          license: ${{ secrets.UNITY_LICENSE }}
           
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
