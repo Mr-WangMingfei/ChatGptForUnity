@@ -13,7 +13,7 @@ jobs:
       - name: Download Unity Analyzers DLL
         run: |
           $downloadUrl = "https://duba-seo-dll-1252921383.cos.ap-beijing.myqcloud.com/dll/Microsoft.Unity.Analyzers.dll"
-          $downloadPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\"
+          $downloadPath = "D:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\"
           # Ensure the directory exists
            if (-not (Test-Path $downloadPath)) {
               New-Item -ItemType Directory -Path $downloadPath
@@ -33,12 +33,12 @@ jobs:
          dotnet-version: '7.0.x'
          
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 5.x
 
       - name: Set up Unity
-        uses: game-ci/setup-unity@v1
+        uses: actions/setup-dotnet@v3
         with:
           unity-version: 2021.3.16f1
           components: Unity
