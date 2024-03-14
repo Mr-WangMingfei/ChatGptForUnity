@@ -31,6 +31,19 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
          dotnet-version: '7.0.x'
+         
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.x
+
+      - name: Set up Unity
+        uses: game-ci/setup-unity@v1
+        with:
+          unity-version: 2021.3.16f1
+          components: Unity
+          license: ${{ secrets.UNITY_LICENSE }
+          
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
       - uses: actions/checkout@v3
