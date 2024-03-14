@@ -32,17 +32,19 @@ jobs:
         with:
          dotnet-version: '7.0.x'
          
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 5.x
+      - name: Install Unity
+        run: |
+          wget -q https://beta.unity3d.com/download/08e68e223773/UnitySetup-2021.1.17f1
+          chmod +x UnitySetup-2021.1.17f1
+          echo y | ./UnitySetup-2021.1.17f1 --unattended --install-location=/opt/Unity
 
-      - name: Set up Unity
-        uses: actions/setup-dotnet@v3
+      - name: Build Unity project
+        run: /opt/Unity/Editor/Unity -quit -batchmode -projectPath . -executeMethod UnityEditor.SyncVS.SyncSolution -logFile build.log
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
         with:
-          unity-version: 2021.3.16f1
-          components: Unity
-          license: ${{ secrets.UNITY_LICENSE }}
+          dotnet-version: '3.1.x'
           
       - name: Restore dependencies
         run: dotnet restore .\ChatGptForUnity\ChatGptForUnity.sln
